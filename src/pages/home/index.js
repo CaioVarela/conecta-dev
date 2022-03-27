@@ -9,14 +9,14 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles({
     root: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     main: {
         height: '100vh',
         display: 'flex',
         width: '1200px',
         margin: '0 auto',
-        padding: 24
+        padding: 24,
     },
     toolbar: {
         minHeight: 64,

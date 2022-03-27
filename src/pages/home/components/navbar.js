@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme)=>({
         width: 275,
         padding: 16,
         marginRight:16,
+        elevation: 0,
     },
     button:{
         width:'100%',
