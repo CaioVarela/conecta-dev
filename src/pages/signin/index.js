@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Button, Typography } from "@mui/material";
+import { Avatar, Button, FormHelperText, Typography } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import { Grid } from "@mui/material";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "@emotion/react";
+import axios from '../../utils/axios';
+import authService from "../../services/authService";
 
 const useStyles = makeStyles({
     root: {
@@ -32,6 +33,18 @@ const useStyles = makeStyles({
 function SignIn() {
     const classes = useStyles();
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState();
+
+    async function handleSignIn(){
+        try {
+            await authService.signIn(email,password);
+            navigate('/');
+        } catch (error) {
+            setErrorMessage(error.response.data.message);
+        }
+    }
 
     return (
         <Grid container className={classes.root}>
@@ -59,6 +72,8 @@ function SignIn() {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    value = {email}
+                    onChange={(event) => setEmail(event.target.value)}
                     />
                     <TextField 
                     variant="outlined"
@@ -70,15 +85,23 @@ function SignIn() {
                     type="password"
                     autoComplete="current-password"
                     autoFocus
+                    value = {password}
+                    onChange={(event) => setPassword(event.target.value)}
                     />
                     <Button fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={() => navigate('/') }
+                    onClick={handleSignIn}
                     sx={{marginTop: 1}}
                     >
                         Entrar
                     </Button>
+                    {
+                        errorMessage &&
+                        <FormHelperText error>
+                            {errorMessage}
+                        </FormHelperText>
+                    }
                     <Grid container>
                         <Grid>
                             <Link>Esqueceu sua senha?</Link>

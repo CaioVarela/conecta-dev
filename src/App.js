@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import theme from "./theme";
 import SignIn from "./pages/signin";
+import './mock';
 
 function App() {
   return (
